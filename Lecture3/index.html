@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rick and Morty Characters</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #characters {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    #characters div {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      text-align: center;
+    }
+
+    #characters img {
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0 10px;
+      font-size: 16px;
+    }
+
+    button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+
+    #pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #currentPage {
+      font-size: 18px;
+      margin: 0 20px;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="characters"></div>
+  <div id="pagination">
+    <button id="prev" disabled>Prev</button>
+    <span id="currentPage">1</span>
+    <button id="next">Next</button>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    const charactersDiv = document.getElementById('characters');
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+    const currentPageSpan = document.getElementById('currentPage');
+
+    function fetchCharacters(page) {
+      charactersDiv.innerHTML = 'Loading…';
+
+      fetch(`https://rickandmortyapi.com/api/character?page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+          displayCharacters(data.results);
+          updatePaginationButtons(data.info);
+        });
+    }
+
+    function displayCharacters(characters) {
+      charactersDiv.innerHTML = characters.map(character => `
+        <div>
+          <img src="${character.image}" alt="${character.name}" width="80">
+          <div><strong>Name:</strong> ${character.name}</div>
+          <div><strong>Status:</strong> ${character.status}</div>
+        </div>
+      `).join('');
+    }
+
+    function updatePaginationButtons(info) {
+      currentPageSpan.textContent = currentPage;
+
+      prevButton.disabled = !info.prev;
+      nextButton.disabled = !info.next;
+    }
+
+    prevButton.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        fetchCharacters(currentPage);
+      }
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentPage++;
+      fetchCharacters(currentPage);
+    });
+
+    // Initial fetch
+    fetchCharacters(currentPage);
+  </script>
+  
+</body>
+</html>
