@@ -1,14 +1,38 @@
+// Виправлення 1: використовуємо  call и bind в getData
+const obj = {
+  name: 'John',
+  age: 30,
+  getData: function() {
+    console.log(`Person name is: ${this.name} and age ${this.age}`);
+  }
+};
 
+obj.getData();
+
+// використовуємо call для вызова метода getData с объектом obj
+function callGetData() {
+  obj.getData.call(obj); // використовуємо call
+}
+
+callGetData();
+
+
+const boundGetData = obj.getData.bind(obj);
+boundGetData(); // використовуємо bind
+
+
+// Виправленя 2: Перенос инкремента в кінці в addParamsToRequest
 function addParamsToRequest(params) {
   let count = 0;
 
   return function(data) {
-      count++; 
-      return {
-          ...params,
-          data: data,
-          count: count
-      };
+    const result = {
+      ...params,
+      data: data,
+      count: count
+    };
+    count++; 
+    return result;
   };
 }
 
@@ -16,24 +40,7 @@ const sendData = addParamsToRequest({ 'access-token': 'qwerty' });
 const result1 = sendData({ key: 'value' });
 console.log(result1); 
 const result2 = sendData({ key: 'anotherValue' });
-console.log(result2); 
-
-
-const obj = {
-  name: 'John',
-  age: 30,
-  getData: function() {
-      console.log(`Person name is: ${this.name} and age ${this.age}`);
-  }
-};
-
-obj.getData();
-
-function callGetData() {
-  obj.getData(); 
-}
-
-callGetData(); 
+console.log(result2);
 
 
 const root = {
