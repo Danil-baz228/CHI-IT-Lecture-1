@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { createTheme, ThemeProvider, CssBaseline, IconButton, AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import Home from './pages/Home';
-import HeroesList from './pages/Heroes';
+import Heroes from './pages/Heroes';
 import CharacterDetails from './pages/CharacterDetails';
 import About from './pages/About';
+import HeroesLayout from './components/HeroesLayout';
 
 function App() {
     const [darkMode, setDarkMode] = useState(false);
@@ -41,9 +42,11 @@ function App() {
                 <div style={{ padding: '20px' }}>
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/heroes" element={<HeroesList />} />
-                        <Route path="/heroes/:id" element={<CharacterDetails />} />
                         <Route path="/about" element={<About />} />
+                        <Route path="/heroes" element={<HeroesLayout />}>
+                            <Route index element={<Heroes />} />
+                            <Route path=":id" element={<CharacterDetails />} />
+                        </Route>
                     </Routes>
                 </div>
             </Router>
