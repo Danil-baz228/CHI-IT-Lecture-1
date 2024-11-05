@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Routes, Route } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { CircularProgress } from '@mui/material';
+import CharacterDetails from './CharacterDetails';
 
 const Heroes = () => {
     const [characters, setCharacters] = useState([]);
@@ -34,18 +35,25 @@ const Heroes = () => {
     }
 
     return (
-        <div style={{ height: 500, width: '100%' }}>
-            <DataGrid
-                rows={characters}
-                columns={columns}
-                pageSize={5}
-                onRowClick={handleRowClick}
-                sx={{
-                    '& .MuiDataGrid-row:hover': {
-                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                    },
-                }}
-            />
+        <div>
+            <div style={{ height: 500, width: '100%' }}>
+                <DataGrid
+                    rows={characters}
+                    columns={columns}
+                    pageSize={5}
+                    onRowClick={handleRowClick}
+                    sx={{
+                        '& .MuiDataGrid-row:hover': {
+                            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                        },
+                    }}
+                />
+            </div>
+
+            {/* Subroutes */}
+            <Routes>
+                <Route path=":id" element={<CharacterDetails />} />
+            </Routes>
         </div>
     );
 };
