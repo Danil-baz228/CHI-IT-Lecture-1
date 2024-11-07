@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { createTheme, ThemeProvider, CssBaseline, IconButton, AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import Home from './pages/Home';
 import Heroes from './pages/Heroes';
 import CharacterDetails from './pages/CharacterDetails';
 import About from './pages/About';
-
-function HeroesLayout() {
-    return (
-        <div>
-            <h2>Heroes Section</h2>
-            <Outlet /> {/* Рендерит вложенные маршруты */}
-        </div>
-    );
-}
 
 function App() {
     const [darkMode, setDarkMode] = useState(false);
@@ -51,9 +42,8 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/about" element={<About />} />
-                        <Route path="/heroes" element={<HeroesLayout />}>
-                            <Route index element={<Heroes />} /> {/* /heroes */}
-                            <Route path=":id" element={<CharacterDetails />} /> {/* /heroes/:id */}
+                        <Route path="/heroes" element={<Heroes />}>
+                            <Route path=":id" element={<CharacterDetails />} /> {/* Саброут для /heroes/:id */}
                         </Route>
                     </Routes>
                 </div>

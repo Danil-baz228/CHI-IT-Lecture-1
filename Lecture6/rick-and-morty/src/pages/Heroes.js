@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Routes, Route } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { CircularProgress } from '@mui/material';
-import CharacterDetails from './CharacterDetails';
 
 const Heroes = () => {
     const [characters, setCharacters] = useState([]);
@@ -35,8 +34,8 @@ const Heroes = () => {
     }
 
     return (
-        <div>
-            <div style={{ height: 500, width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ height: 500, width: '70%' }}>
                 <DataGrid
                     rows={characters}
                     columns={columns}
@@ -50,10 +49,10 @@ const Heroes = () => {
                 />
             </div>
 
-            {/* Subroutes */}
-            <Routes>
-                <Route path=":id" element={<CharacterDetails />} />
-            </Routes>
+            {/* Сайдпанель для саброуту */}
+            <div style={{ width: '30%', padding: '20px', borderLeft: '1px solid #ccc' }}>
+                <Outlet /> {/* Відображає саброут, тобто CharacterDetails */}
+            </div>
         </div>
     );
 };
