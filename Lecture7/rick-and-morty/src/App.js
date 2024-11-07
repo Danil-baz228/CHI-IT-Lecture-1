@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { createTheme, ThemeProvider, CssBaseline, IconButton, AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import Home from './pages/Home';
-
 import About from './pages/About';
 import HeroesLayout from './components/HeroesLayout';
 import Heroes from './pages/Heroes';

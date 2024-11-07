@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
+import { useRequest } from 'ahooks';
 
 const Hero = () => {
     const { id } = useParams();
-    const [character, setCharacter] = useState(null);
+    const { data: character, error, loading } = useRequest(`https://rickandmortyapi.com/api/character/${id}`);
 
-    useEffect(() => {
-        const fetchCharacter = async () => {
-            const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
-            const data = await response.json();
-            setCharacter(data);
-        };
-        fetchCharacter();
-    }, [id]);
+    if (loading) return <Typography>Loading...</Typography>;
+    if (error) return <Typography>Error loading character.</Typography>;
 
     return (
         <Box sx={{ padding: 3, width: '300px', position: 'fixed', right: 0 }}>

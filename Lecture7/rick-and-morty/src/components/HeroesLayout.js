@@ -9,7 +9,6 @@ const HeroesLayout = () => {
                 <Typography variant="h4" gutterBottom>
                     Character List
                 </Typography>
-                {/* Отображение списка персонажей */}
                 <Outlet />
             </Box>
         </Box>
