@@ -1,0 +1,26 @@
+{
+  "name": "backend-app-with-classes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "express": "^4.21.1",
+    "fs": "^0.0.1-security",
+    "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
+    "routing-controllers": "^0.10.4",
+    "ts-node": "^10.9.2",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.1"
+  }
+}
